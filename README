@@ -13,8 +13,6 @@ b) how to upload again
    2. git commit -a
    3. git push origin master
 
-
-
 I kept getting this error when I tried to push:
 Git: push rejected non-fast forward
 
@@ -32,8 +30,10 @@ git add FSR_01_backup.user_configs.sh
 git commit FSR_01_backup.user_configs.sh
 git push origin master
 
-
-
+Remove a file:
+1. Delete the local copy of the file.
+2. git commit -a
+3. git push origin master
 
 
 -----------------------------
