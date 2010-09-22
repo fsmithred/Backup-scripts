@@ -1,7 +1,12 @@
-test00000000000 edit
-another edit
+#a) how to upload
+# mkdir <name of repo>
+# cd <name of repo>
+# git init
+# touch README
+# git commit -m 'first commit'
+# git remote add origin git@github.com:tornow/backup_scripts.git
+# git push origin master
 
-piuab;woe LKJE ;UWT 
 
-frgawgaewtg
-Don't tell me that nothing has changed.
+b) how to upload again
+
