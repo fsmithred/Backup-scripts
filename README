@@ -13,3 +13,45 @@ b) how to upload again
    2. git commit -a
    3. git push origin master
 
+
+
+I kept getting this error when I tried to push:
+Git: push rejected non-fast forward
+
+Found the answer was to pull, then push, on this page:
+http://rip747.wordpress.com/2009/04/20/git-push-rejected-non-fast-forward/
+
+ Posted in Git, TechSupport by rip747 on April 20, 2009
+
+When trying to do a push to a repo, you might encounter the following error:
+
+    $ git push github master
+    To git@gitproxy:rip747/cfwheels.git
+    ! [rejected]        master -> master (non-fast forward)
+    error: failed to push some refs to ‘git@gitproxy:rip747/cfwheels.git’
+
+Don’t panic, this is extremely easy to fix. All you have to do is issue a pull and your branch will be fast-forward:
+
+    $ git pull github master
+    From git@gitproxy:rip747/cfwheels
+    * branch            master     -> FETCH_HEAD
+    Already uptodate!
+    Merge made by recursive.
+
+Then retry your push and everything should be fine:
+
+    $ git push github master
+    Counting objects: 44, done.
+    Compressing objects: 100% (32/32), done.
+    Writing objects: 100% (32/32), 6.30 KiB, done.
+    Total 32 (delta 23), reused 0 (delta 0)
+    To git@gitproxy:rip747/cfwheels.git
+    1717535..1406e8c  master -> master
+
+UPDATE: I ran into another instance of this that the solution above didn’t solve and have provided a solution below.
+
+Another situation where you might run into this, is if you’re tracking a branch that is not the same name as the remote. For instance, say you have a remote branch called otherrepo/master and you already have a local master branch, so you checkout the otherrepo/master branch as othermaster locally. Now even though you do a pull, when you go to push, you will get the rejected error.
+
+To get around this, you will have to specify the local branch in the push command using a colon (:) like so:
+
+    git push otherrepo othermaster:master
