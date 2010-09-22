@@ -20,7 +20,13 @@ Git: push rejected non-fast forward
 
 Found the answer was to pull, then push, on this page:
 http://rip747.wordpress.com/2009/04/20/git-push-rejected-non-fast-forward/
+(page copied below)
 
+4. git pull git@github.com:fsmithred/Backup-scripts master
+5. git push git@github.com:fsmithred/Backup-scripts master
+   (or was it just 'git push origin master'?
+
+-----------------------------
  Posted in Git, TechSupport by rip747 on April 20, 2009
 
 When trying to do a push to a repo, you might encounter the following error:
