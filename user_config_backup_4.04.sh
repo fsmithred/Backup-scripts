@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Later version(s) of this exit at http://github.com/tornow/backup_scripts
+# filename FSR-blah (not sure at this point.)
+
 # This one is live (no -n in the rsync)
 # but it's definitely not ready for use. 
 #
