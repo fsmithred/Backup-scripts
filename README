@@ -26,6 +26,16 @@ http://rip747.wordpress.com/2009/04/20/git-push-rejected-non-fast-forward/
 5. git push git@github.com:fsmithred/Backup-scripts master
    (or was it just 'git push origin master'?
 
+
+Add a file:
+git add FSR_01_backup.user_configs.sh
+git commit FSR_01_backup.user_configs.sh
+git push origin master
+
+
+
+
+
 -----------------------------
  Posted in Git, TechSupport by rip747 on April 20, 2009
 
