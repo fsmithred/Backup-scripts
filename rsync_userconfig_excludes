@@ -1,0 +1,17 @@
+# This is the exclusions list for the user configs backup.
+# Files or directories listed here will not be backed up.
+# Comment out any that you want copied or add any other 
+# hidden directories or files that you want to skip.
+# '- */Cache/' will skip your browser cache if you uncomment it. 
+# This is only relevant if you comment out the .mozilla line, 
+# or if there's a 'Cache' somewhere else.
+
+
+- .local/share/Trash/
+- .thumbnails
+#- */Cache/
+- .mozilla
+- .mozilla-thunderbird
+- .cache
+- .macromedia
+- .adobe
