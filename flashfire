@@ -3,19 +3,17 @@
 # kill flash cookies
 
 
-DIR1=/home/$USER/.macromedia/Flash_Player/#SharedObjects/
-DIR2=/home/$USER/.macromedia/Flash_Player/macromedia.com/support/flashplayer/sys/
-DIR3=/home/$USER/.adobe/Flash_Player/AssetCache/
+DIR1="/home/$USER/.macromedia/Flash_Player/#SharedObjects/"
+DIR2="/home/$USER/.macromedia/Flash_Player/macromedia.com/support/flashplayer/sys/"
+DIR3="/home/$USER/.adobe/Flash_Player/AssetCache/"
 
-cd /home/$USER
 
 # look for contents in first directory.
-if [ "$(ls -A $DIR1)" ]; then
+if [[ "$(ls -A $DIR1)" ]]; then
    echo
    echo "Removing flash cookies..."
-   cd $DIR1
-   for i in * ; do ls $i && rm -r $i ; done
-   cd /home/$USER
+   cd "$DIR1"
+   for i in * ; do ls "$i" && rm -r "$i" ; done
    sleep 1
    echo
   else
@@ -26,12 +24,11 @@ if [ "$(ls -A $DIR1)" ]; then
    sleep 1
 fi
 
-if [ "$(ls -A $DIR2)" ]; then
+if [[ "$(ls -A $DIR2)" ]]; then
    echo
    echo "Removing more junk..."
-   cd $DIR2
-   for i in * ; do echo $i && rm -r $i ; done
-   cd /home/$USER
+   cd "$DIR2"
+   for i in * ; do echo "$i" && rm -r "$i" ; done
    sleep 1
    echo
   else
@@ -43,12 +40,11 @@ if [ "$(ls -A $DIR2)" ]; then
    sleep 1
 fi
 
-if [ "$(ls -A $DIR3)" ]; then
+if [[ "$(ls -A $DIR3)" ]]; then
    echo
    echo "One more place to check..."
-   cd $DIR3
-   for i in * ; do ls $i && rm -r $i ; done
-   cd /home/$USER
+   cd "$DIR3"
+   for i in * ; do ls "$i" && rm -r "$i" ; done
    sleep 1
    echo
   else
