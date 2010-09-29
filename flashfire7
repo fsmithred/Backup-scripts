@@ -1,0 +1,148 @@
+#!/bin/bash
+# flashfire v.7c
+# kill flash cookies 
+
+# Edit function dont_ask to make automatic mode active.
+# Just change "du -sh" to "rm -r *". (scary, huh?)
+
+echo "
+  =========================================
+    FlashFire v.7   by fsmithred@gmail.com
+    Use at your own risk! 
+  =========================================      
+        "
+
+DIR1="/home/$USER/.macromedia/Flash_Player/#SharedObjects/"
+DIR2="/home/$USER/.macromedia/Flash_Player/macromedia.com/support/flashplayer/sys/"
+DIR3="/home/$USER/.adobe/Flash_Player/AssetCache/"
+
+help_text="
+Usage:
+flashfire7  -OPTION
+
+This script will find and delete flash cookies. 
+
+    valid options: 
+        -h, --help, -?,        show this help message
+        -a,               automatic mode (deletes items without asking)
+        -m,                    manual mode (asks before deleting)
+        
+    "
+
+
+function show_help {
+	echo "$help_text"
+    exit 0
+}
+
+
+function ask_delete {
+echo -n "
+    Delete these items? (Y/n) "
+read answer
+case ${answer:0:1} in
+    [Nn]) echo "skipping these" ;;
+    *) echo "
+    Deleting...
+    " ; rm -r *  
+sleep 1
+esac
+}
+
+function dont_ask {
+    rm -r *
+    sleep 2
+}
+
+# Make sure there's an option, otherwise, exit.
+if [[ "$#" -ne  1 ]]
+  then
+    echo "
+    ERROR!
+    You must use one option.
+    "
+    show_help
+    exit 0
+fi
+
+
+# Manual loop to handle any arbitrary set of options.
+while [[ $1 == -* ]]; do
+    case "$1" in
+      -h|--help|-\?) show_help; exit 0;;
+#      --) shift; break;;
+      -a) echo "Running in automatic mode. Hit ctrl-c to stop now." ; sleep 3 ; MODE="dont_ask" ; shift;; 
+      -m) echo "Running in manual mode." ; MODE="ask_delete" ; shift;;
+      -*) echo "
+    ERROR!
+    invalid option: $1
+    
+    valid options: 
+        -h, --help, -?,       show this help message
+        -a,              automatic mode (deletes items without asking)
+        -m,                   manual mode (asks before deleting)
+              " 
+              1>&2; exit 1;;
+    esac
+done
+
+# look for contents in first directory
+if [[ "$(ls -A $DIR1)" ]]; then
+    echo
+    echo "     Checking for flash cookies..."
+    sleep 1
+    cd "$DIR1"
+   for i in * ; do echo "$i" && ls "$i"  ; done
+#    ask_delete
+    "$MODE"
+    echo
+  else
+    echo "
+    Nothing to do; directory is empty.
+    (#SharedObjects)
+    "
+    sleep 1
+fi
+
+
+# look for contents in second directory
+if [[ "$(ls -A $DIR2)" ]]; then
+   echo
+   echo "     Checking for more junk..."
+   sleep 1
+   cd "$DIR2"
+   for i in * ; do echo "$i"  ; done
+#   ask_delete
+   "$MODE"
+   echo
+  else
+   echo
+   echo "Nothing to do; directory is empty."
+   echo "(support/flashplayer/sys)"
+   echo
+   echo
+   sleep 1
+fi
+
+
+# look for contents in third directory
+if [[ "$(ls -A $DIR3)" ]]; then
+   echo
+   echo "     One more place to check..."
+   sleep 1
+   cd "$DIR3"
+   for i in * ; do echo "$i" && ls -l "$i"  ; done
+#   ask_delete
+   "$MODE"
+   echo
+  else
+   echo
+   echo "Nothing to do; directory is empty."
+   echo "(AssetCache)"
+   echo
+   sleep 1
+fi
+
+echo "Done!"
+echo
+exit 0
