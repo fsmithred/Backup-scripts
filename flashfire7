@@ -1,14 +1,12 @@
 #!/bin/bash
-# flashfire v.7c
+# flashfire v.7
 # kill flash cookies 
 
-# Edit function dont_ask to make automatic mode active.
-# Just change "du -sh" to "rm -r *". (scary, huh?)
 
 echo "
   =========================================
     FlashFire v.7   by fsmithred@gmail.com
-    Use at your own risk! 
+    Use at your own risk! (It works for me.) 
   =========================================      
         "
 
