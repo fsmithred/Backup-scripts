@@ -2,8 +2,6 @@
 # flashfire v.7
 # kill flash cookies 
 
-# Edit function dont_ask to make automatic mode active.
-# Just change "du -sh" to "rm -r *". (scary, huh?)
 
 echo "
   =========================================
