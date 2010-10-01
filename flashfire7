@@ -2,11 +2,13 @@
 # flashfire v.7
 # kill flash cookies 
 
+# Edit function dont_ask to make automatic mode active.
+# Just change "du -sh" to "rm -r *". (scary, huh?)
 
 echo "
   =========================================
     FlashFire v.7   by fsmithred@gmail.com
-    Use at your own risk! (It works for me.) 
+    Use at your own risk! 
   =========================================      
         "
 
@@ -72,12 +74,12 @@ while [[ $1 == -* ]]; do
       -a) echo "Running in automatic mode. Hit ctrl-c to stop now." ; sleep 3 ; MODE="dont_ask" ; shift;; 
       -m) echo "Running in manual mode." ; MODE="ask_delete" ; shift;;
       -*) echo "
-    ERROR!
-    invalid option: $1
+
+    INVALID OPTION! $1
     
     valid options: 
         -h, --help, -?,       show this help message
-        -a,              automatic mode (deletes items without asking)
+        -a,                   automatic mode (deletes items without asking)
         -m,                   manual mode (asks before deleting)
               " 
               1>&2; exit 1;;
@@ -87,11 +89,11 @@ done
 # look for contents in first directory
 if [[ "$(ls -A $DIR1)" ]]; then
     echo
-    echo "     Checking for flash cookies..."
+    echo "     Checking for flash cookies...
+    "
     sleep 1
     cd "$DIR1"
-   for i in * ; do echo "$i" && ls "$i"  ; done
-#    ask_delete
+   for i in * ; do ls "$i"  ; done
     "$MODE"
     echo
   else
@@ -106,11 +108,11 @@ fi
 # look for contents in second directory
 if [[ "$(ls -A $DIR2)" ]]; then
    echo
-   echo "     Checking for more junk..."
+   echo "     Checking for more junk...
+   "
    sleep 1
    cd "$DIR2"
    for i in * ; do echo "$i"  ; done
-#   ask_delete
    "$MODE"
    echo
   else
@@ -126,11 +128,11 @@ fi
 # look for contents in third directory
 if [[ "$(ls -A $DIR3)" ]]; then
    echo
-   echo "     One more place to check..."
+   echo "     One more place to check...
+   "
    sleep 1
    cd "$DIR3"
-   for i in * ; do echo "$i" && ls -l "$i"  ; done
-#   ask_delete
+   for i in * ; do echo "$i" && ls "$i"  ; done
    "$MODE"
    echo
   else
@@ -143,4 +145,5 @@ fi
 
 echo "Done!"
 echo
+sleep 2
 exit 0
