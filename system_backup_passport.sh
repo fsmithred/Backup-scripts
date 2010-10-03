@@ -2,7 +2,7 @@
 # system_backup_passport.sh
 # Back up OS to encrypted partition on external drive
 # Create encrypted archive on another internal drive
-# fsmithred October 3, 2010
+#   fsmithred October 3, 2010
 
 
 # NOTES:
