@@ -2,7 +2,7 @@
 # system_backup_passport.sh
 # Back up OS to encrypted partition on external drive
 # Create encrypted archive on another internal drive
-#   fsmithred October 3, 2010
+# fsmithred October 3, 2010
 
 
 # NOTES:
@@ -103,7 +103,7 @@ fi
 
 echo -n "Contents of archive directory:"
 ls -lh "$ARCHIVE_DIR"
-df -h | awk -v pattern=$ARCHIVE_DEV '$0 ~ pattern { print $4 "  "  "("$5")" "  " "available space on the partition" }'
+df -h | awk -v pattern=$ARCHIVE_DEV '$0 ~ pattern { print "    " $4 " " "Avail." "    " "("$5")" " " "Used" }'
 
 echo -n "
     Would you like to run rsync now? (y/n)
