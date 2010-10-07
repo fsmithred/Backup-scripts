@@ -35,6 +35,12 @@ Remove a file:
 2. git commit -a
 3. git push origin master
 
+Remove a file: (I just did this and it worked.)
+1. Don't delete the local copy of the file.
+2. git rm <filename>
+3. git commit
+4. git push origin master
+
 
 -----------------------------
  Posted in Git, TechSupport by rip747 on April 20, 2009
