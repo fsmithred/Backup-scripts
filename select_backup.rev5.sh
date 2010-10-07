@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 # select_backup.rev5.sh
 
+
 # Added functions: check_root, show_help
+# Removed "give root password" messages and "su -c".
 # Replaced getopts with manual loop for handling options.
 # Moved the help part up to the top. Otherwise, the script
 # just goes right to asking for the user.
 # Added test for directory vs. file before running rsync.
+
 
 # TEST RESULTS
 # Won't delete. Tried --delete-after and --delete
