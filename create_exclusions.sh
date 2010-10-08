@@ -58,7 +58,7 @@ function ask_exclusions {
         case "$answer" in 
             [Yy]*) echo $e >> "$EXCLUSIONS" ; echo "$e will be skipped" ;;
               all) ls -1 "$BU_DIR" >> "$EXCLUSIONS" ; echo "All non-hidden items in this directory will be excluded." ; break ;;
-		     none) echo "All non-hidden items in this directory will be backed up." ; touch "$EXCLUSIONS" ; break ;;
+             none) echo "All non-hidden items in this directory will be backed up." ; touch "$EXCLUSIONS" ; break ;;
                 *) echo "$e will be backed up" ;;
         esac 
     cd -
