@@ -76,9 +76,9 @@ function exclude_hidden {
         read answer
         case "$answer" in 
             [Yy]*) echo $e >> "$EXCLUSIONS" ; echo "$e will be skipped" ;;
-             all) echo ".[a-z,A-Z,0-9]*" >> "$EXCLUSIONS" ; echo "All hidden items in this directory will be excluded." ; break ;;
-            none) echo "All hidden items in this directory will be backed up." ; touch "$EXCLUSIONS" ; break ;;
-               *) echo "$e will be backed up" ;;
+              all) echo ".[a-z,A-Z,0-9]*" >> "$EXCLUSIONS" ; echo "All hidden items in this directory will be excluded." ; break ;;
+             none) echo "All hidden items in this directory will be backed up." ; touch "$EXCLUSIONS" ; break ;;
+                *) echo "$e will be backed up" ;;
         esac 
     fi
     cd -
