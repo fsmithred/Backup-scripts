@@ -55,11 +55,11 @@ function ask_exclusions {
         echo -n "
         Exclude $e? (y/N/all/none): "
         read answer
-        case "${answer:0:1}" in 
+        case "$answer" in 
             [Yy]*) echo $e >> "$EXCLUSIONS" ; echo "$e will be skipped" ;;
-           "all") ls -1 >> "$EXCLUSIONS" ; echo "All non-hidden items in this directory will be excluded." ; break ;;
-          "none") echo "All non-hidden items in this directory will be backed up." ; touch "$EXCLUSIONS" ; break ;;
-               *) echo "$e will be backed up" ;;
+              all) ls -1 "$BU_DIR" >> "$EXCLUSIONS" ; echo "All non-hidden items in this directory will be excluded." ; break ;;
+		     none) echo "All non-hidden items in this directory will be backed up." ; touch "$EXCLUSIONS" ; break ;;
+                *) echo "$e will be backed up" ;;
         esac 
     cd -
 done
@@ -74,10 +74,10 @@ function exclude_hidden {
         echo -n "
         Exclude $e? (y/N/all/none): "
         read answer
-        case "${answer:0:1}" in 
-            [Yy]) echo $e >> "$EXCLUSIONS" ; echo "$e will be skipped" ;;
-           [all]) echo ".[a-z,A-Z,0-9]*" >> "$EXCLUSIONS" ; echo "All hidden items in this directory will be excluded." ; break ;;
-          [none]) echo "All hidden items in this directory will be backed up." ; touch "$EXCLUSIONS" ; break ;;
+        case "$answer" in 
+            [Yy]*) echo $e >> "$EXCLUSIONS" ; echo "$e will be skipped" ;;
+             all) echo ".[a-z,A-Z,0-9]*" >> "$EXCLUSIONS" ; echo "All hidden items in this directory will be excluded." ; break ;;
+            none) echo "All hidden items in this directory will be backed up." ; touch "$EXCLUSIONS" ; break ;;
                *) echo "$e will be backed up" ;;
         esac 
     fi
