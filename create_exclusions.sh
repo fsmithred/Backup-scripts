@@ -56,9 +56,9 @@ function ask_exclusions {
         Exclude $e? (y/N/all/none): "
         read answer
         case "${answer:0:1}" in 
-            [Yy]) echo $e >> "$EXCLUSIONS" ; echo "$e will be skipped" ;;
-           [all]) ls -1 >> "$EXCLUSIONS" ; echo "All non-hidden items in this directory will be excluded." ; break ;;
-          [none]) echo "All non-hidden items in this directory will be backed up." ; touch "$EXCLUSIONS" ; break ;;
+            [Yy]*) echo $e >> "$EXCLUSIONS" ; echo "$e will be skipped" ;;
+           "all") ls -1 >> "$EXCLUSIONS" ; echo "All non-hidden items in this directory will be excluded." ; break ;;
+          "none") echo "All non-hidden items in this directory will be backed up." ; touch "$EXCLUSIONS" ; break ;;
                *) echo "$e will be backed up" ;;
         esac 
     cd -
