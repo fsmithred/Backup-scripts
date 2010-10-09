@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 # create_exclusions.sh
-# version 4
+# version 4.01
+
+# CHANGES 4.01
+# Added option to keep the old file and add to it.
+# Added some instructions for y/N/all/none
+# removed "touch $EXCLUSIONS"
 
 # This script will ask about each file and directory
 # in a chosen directory and make a list of items for 
@@ -58,16 +63,14 @@ function ask_exclusions {
         case "$answer" in 
             [Yy]*) echo $e >> "$EXCLUSIONS" ; echo "$e will be skipped" ;;
               all) ls -1 "$BU_DIR" >> "$EXCLUSIONS" ; echo "All non-hidden items in this directory will be excluded." ; break ;;
-             none) echo "All non-hidden items in this directory will be backed up." ; touch "$EXCLUSIONS" ; break ;;
+             none) echo "All non-hidden items in this directory will be backed up." ; break ;;
                 *) echo "$e will be backed up" ;;
         esac 
-    cd -
 done
 }
 
 
 function exclude_hidden {
-    cd "$BU_DIR"
     for e in $(ls -Ad .*) ; do
     if ! [[ $e = "." || $e = ".."  ]] 
     then
@@ -77,11 +80,10 @@ function exclude_hidden {
         case "$answer" in 
             [Yy]*) echo $e >> "$EXCLUSIONS" ; echo "$e will be skipped" ;;
               all) echo ".[a-z,A-Z,0-9]*" >> "$EXCLUSIONS" ; echo "All hidden items in this directory will be excluded." ; break ;;
-             none) echo "All hidden items in this directory will be backed up." ; touch "$EXCLUSIONS" ; break ;;
+             none) echo "All hidden items in this directory will be backed up." ; break ;;
                 *) echo "$e will be backed up" ;;
         esac 
     fi
-    cd -
 done
 }
 
@@ -91,7 +93,7 @@ function more_exclusions {
 	echo -n "
 	Anything else to exclude? 
 	Enter a relative path here
-	or n for no.
+	or n for no. 
           "
 	read answer 
         case "$answer" in
@@ -115,6 +117,7 @@ then
     and each one requires an answer. 
     This could take awhile.
     "
+sleep 3
 fi
 
 
@@ -123,18 +126,25 @@ fi
 
 if [[ -e "$EXCLUSIONS" ]]
 then
+    echo "Contents of $EXCLUSIONS"
+    sleep 1
+    cat "$EXCLUSIONS"
     echo "
     An exclusions file already exists. 
     If you continue, it will be deleted,
     and a new one generated. Else you can 
     exit, in case you want to move the file.
         
-    Continue? (y/N) 
-        "
+    Continue and create a new file?    (y or c)
+    Keep the old file and add to it?   (k) 
+    No, exit the script.               (n)
+    
+    Answer: "
     read answer
     case "$answer" in
-        [Yy]*) echo "Removing $EXCLUSIONS
+        [Yy]*|[Cc]) echo "Removing $EXCLUSIONS
                       " ; rm "$EXCLUSIONS" ;;
+         [Kk]) ;;
             *) echo "Aborting...
             " ; exit 0 ;;
     esac
@@ -163,6 +173,16 @@ fi
 
 #echo ".[a-z,A-Z,0-9]*" >> "$EXCLUSIONS"
 
+# Instructions
+echo "
+    -------------------------------------------------------------------
+    Answer \"y\" to exclude an item from backup.
+    Answer \"n\" or Enter to skip an item.
+    \"all\" will add all items in a section. (hidden or non-hidden)
+    \"none\" will exit a section without adding more files to the list.
+    -------------------------------------------------------------------
+    "
+sleep 1
 ask_exclusions
 exclude_hidden
 more_exclusions
