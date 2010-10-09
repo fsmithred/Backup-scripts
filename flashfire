@@ -44,7 +44,7 @@ if [[ "$(ls -A $DIR3)" ]]; then
    echo
    echo "One more place to check..."
    cd "$DIR3"
-   for i in * ; do ls "$i" && rm -r "$i" ; done
+   for i in * ; do echo "$i" && ls "$i" && rm -r "$i" ; done
    sleep 1
    echo
   else
