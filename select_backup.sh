@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# select_backup.rev9.sh
+# select_backup.rev10.sh/03_data_backup.sh
 
 
 # the help text will be shown in case the user uses the -h option
@@ -11,7 +11,7 @@ $0  <username>
 
 This script will backup FOLDERS and FILES in your home.
 You can store the backup on an external/internal hd, an usb-stick...
-Use create_exclusions.sh to generate a file of rsync exclusions.
+Use create_excludes.sh to generate a file of rsync excludes.
 If unsure run \"fdisk -l\" and \"ls /home/username\" first 
 "
 
@@ -43,7 +43,7 @@ echo
 BU_USER=
 BU_DEV=
 BU_MOUNTPOINT=
-EXCLUSIONS=
+EXCLUDES=
 
 # if you want to set them static, comment out the following:
 echo -n "
@@ -57,8 +57,8 @@ echo -n "
 read BU_MOUNTPOINT
 echo -n "
     Give the full path (with filename)
-    to the rsync exclusions file: "
-read EXCLUSIONS
+    to the rsync excludes file: "
+read EXCLUDES
 
 
 function check_root {
@@ -143,13 +143,13 @@ echo -n "
     The following items will be skipped.
     "
 sleep 3
-cat "$EXCLUSIONS"
+cat "$EXCLUDES"
 ask_for
 
 
-# rsync the user's home, excluding items that were put in the exclusions file.
+# rsync the user's home, excluding items that were put in the excludes file.
 
-rsync -auvx --delete --exclude-from="$EXCLUSIONS" /home/"$BU_USER"/  "$BU_MOUNTPOINT"
+rsync -auvx --delete --exclude-from="$EXCLUDES" /home/"$BU_USER"/  "$BU_MOUNTPOINT"
 check_exit
 
 # finish
