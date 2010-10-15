@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 # back up system over ssh
 
-# IP address or hostname
-REMOTE_HOST="zephyr"
+# IP address or hostname of the destination system
+REMOTE_HOST="some-host"
 
 # Source path (should be / on localhost for system backup.)
-SRC="/etc"
+SRC="/"
 
 # Destination path (should be / on remote host for system backup.)
-DEST="/root/backup/"
+DEST="/"
 
 # Full (absolute) path to the ssh key file
-KEYFILE="/root/.ssh/id_zephyr"
+KEYFILE="/root/.ssh/id_rsa"
 
-# Full (absolute) path to the rsync exclusions file
-EXCLUSIONS="/root/scripts/test-exclusions"
+# Full (absolute) path to the rsync excludes file
+EXCLUDES="/path/to/rsync_system_excludes"
 
 # Backup user (should be root to back up the system)
 BU_USER="root"
@@ -46,15 +46,15 @@ function ask {
 	incrementally to $DEST on $REMOTE_HOST.
 
 	Hit \"Enter\" to continue,
-	\"S\" or \"s\" to Show the exclusions file and exit,
+	\"S\" or \"s\" to Show the excludes file and exit,
 	\"n\", \"e\", or \"x\" to Exit the script.
 	 "
 	read answer
 	case "$answer" in          
 	            [Ss]) echo "
-	  Contents of $EXCLUSIONS:
+	  Contents of $EXCLUDES:
 	            " 
-	            cat "$EXCLUSIONS" ; echo ; exit 0 ;; 
+	            cat "$EXCLUDES" ; echo ; exit 0 ;; 
 	  [Nn]|[Ee]|[Xx]) echo "
 	  Exiting...
 	                " 1>&2 ; exit 1 ;;
@@ -72,7 +72,7 @@ check_root
 ask
 
 
-rsync  -avx --exclude-from="$EXCLUSIONS"  --delete-after -e "ssh -c blowfish -i $KEYFILE " "$SRC" "$BU_USER"@"$REMOTE_HOST":/"$DEST"
+rsync  -avx --exclude-from="$EXCLUDES"  --delete-after -e "ssh -c blowfish -i $KEYFILE " "$SRC" "$BU_USER"@"$REMOTE_HOST":/"$DEST"
 check_exit
 
 echo "
