@@ -1,0 +1,35 @@
+# rsync excludes for system backup
+# You can comment out or add lines as needed.
+# Anything listed here will NOT be backed up.
+# Note that /home is set to be excluded from backup.
+
+- /proc/
+- /lost+found/
+- /dev/
+- /mnt/
+- /media/
+- /sys/
+- /tmp/
+- /home/
+
+
+# Some others that might be useful if you commented out /home/ above (i.e. if you
+# will be backing up /home).
+# I'm not sure if all of these work right. 
+# Tested while running as user from home.
+# '- */Cache/' is right for browser cache, and '- .cache' is right for ~/.cache
+# '- */Trash/* keeps .local/share/Trash/ but it's empty.
+# same with '- /.thumbnails/* but
+# '- .mozilla/' results in no .mozilla directory.
+
+
+#- */Trash/*
+#- /.thumbnails/*
+#- */Cache/
+#- .cache
+#- /.macromedia/
+#- /.adobe/
+#- .mozilla/
+# These next two should exclude all of .mozilla except for bookmarkbackups. (untested)
+#- .mozilla/*
+#+ .mozilla/*/bookmarkbackups
