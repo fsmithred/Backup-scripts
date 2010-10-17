@@ -2,7 +2,7 @@
 # system_backup_passport.sh
 # Back up OS to encrypted partition on external drive
 # Create encrypted archive on another internal drive
-# fsmithred October 3, 2010
+
 
 
 # NOTES:
@@ -12,6 +12,11 @@
 # To use a different drive/partition (not my 120G WD Passport, second partition)
 # change the uuid in the BU_DEV variable. (in Lenny, you can use disk labels, 
 # but in Squeeze, blkid won't show the disk label on an encrypted partition.)
+
+# TODO
+# It might make more sense  mount $ARCHIVE_DEV
+# after the script asks if you want it to make an archive, 
+# and only if you say yes.
 
 
 # VARIABLES - set these to suit your needs
