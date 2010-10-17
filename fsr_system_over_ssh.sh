@@ -1,13 +1,28 @@
 #!/usr/bin/env bash
 # back up system over ssh
 
+# NOTES -- IMPORTANT!!!
+# Edit the variables to suit your needs. 
+# Make sure the destination path is correct!!!
+# To back up something other than the full system, change 
+# SRC and DEST. To run it as an unprivileged user,
+# comment out "check_root" on or about line 86, and change BU_USER. 
+# If any directories are mount points for another 
+# partition (like /home, for instance) remove the "x"
+# from "rsync -auvx" if you want to include it in the backup.
+
+
 # IP address or hostname of the destination system
 REMOTE_HOST="some-host"
 
-# Source path (should be / on localhost for system backup.)
+# Source path (should be "/" on localhost for system backup.)
 SRC="/"
 
-# Destination path (should be / on remote host for system backup.)
+# Destination path (WARNING!!! UNTESTED!!!)
+# Set to "/" on remote host if you want the backup system 
+# to be a working clone. If so, you will need to exclude 
+# any files that have configurations specific to that host.
+# Otherwise, change it to some backup directory on the remote host.
 DEST="/"
 
 # Full (absolute) path to the ssh key file
@@ -72,7 +87,7 @@ check_root
 ask
 
 
-rsync  -avx --exclude-from="$EXCLUDES"  --delete-after -e "ssh -c blowfish -i $KEYFILE " "$SRC" "$BU_USER"@"$REMOTE_HOST":/"$DEST"
+rsync  -auvx --exclude-from="$EXCLUDES"  --delete-after -e "ssh -c blowfish -i $KEYFILE " "$SRC" "$BU_USER"@"$REMOTE_HOST":/"$DEST"
 check_exit
 
 echo "
