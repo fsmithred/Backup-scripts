@@ -28,7 +28,7 @@ Age of files: "
 read MTIME
 
 
-#      Find files that match the specified patterns and age.
+#      Get ready to find files that match the specified patterns and age.
 #
 #      Exclude this script, exclude OLD (top-level dir for all the OLD_DIRs.) 
 #
@@ -45,7 +45,7 @@ OLD="old"
 # "[[:digit:]]" is same as "[0-9]" ; "^./sys" excludes files that begin with "sys" (find adds the path).
 # "\.sh$" excludes files ending in ".sh" ; "rev" excludes files that contain "rev" anywhere in the name.
 # "rev." excludes any files with "rev" plus at least one character after it. Use "rev\." to exclude "rev." 
-REGEX="this_unlikely_string"
+#REGEX="this_unlikely_string"
 #REGEX="\.sh$"
 if [[ $REGEX ]]
 then printf "\n REGEX=$REGEX excluded \n\n" ; fi
@@ -55,21 +55,22 @@ then printf "\n REGEX=$REGEX excluded \n\n" ; fi
 OLDIFS=$IFS
 IFS=$'\n'
 
+# find files and put them in an array
 N=0
 for i in $(find . -maxdepth 1 -type f -name "$1"  -mtime $MTIME) ; do
-     if ! [[ $i =~ $EXCLUDE ]] && ! [[ $i = $OLD ]] && ! [[ $i =~  $REGEX ]] 
+     if ! [[ $i =~ $EXCLUDE ]] && ! [[ $i = $OLD ]] #&& ! [[ $i =~  $REGEX ]] 
     then
         FILES[$N]="$i"
-#        echo "$i"
+        echo "$i"
         ((N++))
     fi
 done
 
 for i in $(find . -maxdepth 1 -type f -name "$2"  -mtime $MTIME) ; do
-    if ! [[ $i =~ $EXCLUDE ]] && ! [[ $i = $OLD ]] && ! [[ $i =~  $REGEX ]]
+    if ! [[ $i =~ $EXCLUDE ]] && ! [[ $i = $OLD ]] #&& ! [[ $i =~  $REGEX ]]
     then
         FILES[$N]="$i"
-#        echo "$i"
+        echo "$i"
         ((N++))
     fi
 done  
@@ -89,14 +90,10 @@ then
     "
     exit 1
 fi
- 
-# use for loop read all filenames
-for (( i=0; i<${tLen}; i++ )); do
-    echo "${FILES[$i]}"
-done
 
 echo "
-    ${#FILES[@]}" files found.
+    $tLen files found."
+
 
 ###   set name of OLD_DIR  using first and last filenames in array,
 ###   removing non-alphanumeric characters.
