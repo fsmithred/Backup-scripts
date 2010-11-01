@@ -5,7 +5,7 @@
 
 echo "
   =========================================
-    FlashFire v.7   by fsmithred@gmail.com
+    FlashFire v.7   by fsmithred at g mail dot com
     Use at your own risk! 
   =========================================      
         "
@@ -68,9 +68,8 @@ fi
 while [[ $1 == -* ]]; do
     case "$1" in
       -h|--help|-\?) show_help; exit 0;;
-#      --) shift; break;;
-      -a) echo "Running in automatic mode. Hit ctrl-c to stop now." ; sleep 3 ; MODE="dont_ask" ; shift;; 
-      -m) echo "Running in manual mode." ; MODE="ask_delete" ; shift;;
+      -a) echo "Running in automatic mode. Hit ctrl-c to stop now." ; sleep 3 ; MODE="dont_ask" ; break;; 
+      -m) echo "Running in manual mode." ; MODE="ask_delete" ; break;;
       -*) echo "
 
     INVALID OPTION! $1
