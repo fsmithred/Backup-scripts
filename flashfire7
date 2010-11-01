@@ -68,8 +68,8 @@ fi
 while [[ $1 == -* ]]; do
     case "$1" in
       -h|--help|-\?) show_help; exit 0;;
-      -a) echo "Running in automatic mode. Hit ctrl-c to stop now." ; sleep 3 ; MODE="dont_ask" ; break;; 
-      -m) echo "Running in manual mode." ; MODE="ask_delete" ; break;;
+      -a) echo "Running in automatic mode. Hit ctrl-c to stop now." ; sleep 3 ; Mode="dont_ask" ; break;; 
+      -m) echo "Running in manual mode." ; Mode="ask_delete" ; break;;
       -*) echo "
 
     INVALID OPTION! $1
@@ -91,7 +91,7 @@ if [[ "$(ls -A $DIR1)" ]]; then
     sleep 1
     cd "$DIR1"
    for i in * ; do ls "$i"  ; done
-    "$MODE"
+    "$Mode"
     echo
   else
     echo "
@@ -110,7 +110,7 @@ if [[ "$(ls -A $DIR2)" ]]; then
    sleep 1
    cd "$DIR2"
    for i in * ; do echo "$i"  ; done
-   "$MODE"
+   "$Mode"
    echo
   else
    echo
@@ -130,7 +130,7 @@ if [[ "$(ls -A $DIR3)" ]]; then
    sleep 1
    cd "$DIR3"
    for i in * ; do echo "$i" && ls "$i"  ; done
-   "$MODE"
+   "$Mode"
    echo
   else
    echo
