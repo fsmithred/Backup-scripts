@@ -1,3 +1,11 @@
+This files contains git notes.
+
+This repos contains backup scripts. The MTFSR_backup_scripts package contains a set of backup scripts written as a project by the debian-forums bash study group. (M. Tornow and me)
+
+Other scripts have been moved to http://github.com/fsmithred/scripts 
+
+
+
 #a) how to upload
 # mkdir <name of repo>
 # cd <name of repo>
